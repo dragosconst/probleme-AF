@@ -4,6 +4,12 @@
 	Nr in pdf: 2, dar cu Primm, in loc de Kruskal
 	Observatii: Am rezolvat-o in liceu, deci imi cer scuze in avans daca sunt unele ciudatenii in cod\ar putea fi optimizat.
 				Aveam prostul obicei sa definesc milioane de variabile globale.
+	Implementare: E varianta cu min-heap. Min-heap ul efectiv este h[], iar poz[] e un vector folosit sa tin minte unde in heap
+				  se afla fiecare varf din graf, pt ca heap-ul e tinut in memorie ca un vector.
+				  "nh" se refera la cate varfuri am in heap, adica cate mai trebuie extrase in arbore.
+				  "kt" e folosit pentru vectorul de afisare.
+				  "S" vine de la solutie, e costul total al apcm-ul
+				  "coboara" si "urca" sunt functii standard de min-heap, schimbate un pic pt Prim in mod specific.
 */
 #include <fstream>
 #include <vector>
@@ -104,7 +110,7 @@ void prim(int x0)
 	
 void urca(int p)	
 {
-    while(p > 1 && d[h[p]] < d[h[p / 2]])
+    while(p > 1 && d[h[p]] < d[h[p / 2]]) // p / 2 e parintele intr-un min-heap
     {
         swap(h[p], h[p / 2]);
         poz[h[p]] = p;
@@ -115,7 +121,7 @@ void urca(int p)
 	
 void coboara(int p)	
 {
-    int fs = p * 2, fd = p * 2 + 1, bun = p;
+    int fs = p * 2, fd = p * 2 + 1, bun = p; // fs = fiu stang, fd = fiu drept
     if(fs <= nh && d[h[fs]] < d[h[bun]])
     {
         bun = fs;
@@ -140,7 +146,7 @@ void adauga(int val)
     urca(nh);	
 }
 	
-void sterge(int p)	
+void sterge(int p)	// stergere standard in min-heap
 {
     swap(h[p], h[nh--]);
     poz[h[p]] = p;
