@@ -130,7 +130,7 @@ int main()
         y = m.y;
 
         if (Find(x) != Find(y))
-            sep = min(sep, distLev(cuvinte[x], cuvinte[y]));
+            sep = min(sep, m.c);
     }
 
     cout << "Gradul de separabilitate: " << sep << '\n';
