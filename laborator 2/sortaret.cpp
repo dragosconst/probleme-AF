@@ -41,7 +41,16 @@ int main()
     return 0;	
 }
 	
- 
+
+// lst o sa pointeze la "cel mai din dreapta" varf adiacent, stocat in vf, in ordinea intrarilor
+// folosind urm, care mai bine era denumit pred, putem merge inapoi pe lista de adiacenta (care e vf)
+// 0 in urm inseamna ca e ultimul varf in care putem ajunge
+// avantajul implementarii statice e eficienta de spatiu si timp, pentru ca nu se mai face overhead la 
+// adaugarea de muchii noi (decat cu vectorul urm, dar o atribuire e nesemnificativa in comparatie
+// cu operatii de tip malloc), ca la vector sau alocare dinamica
+// castigam spatiu prin numarul minim de metadate necesare (un vector sau o structura alocata dinamic
+// consuma mai mult ca un simplu array) 
+
 void adauga(int x, int y)	
 {
     ++nr;
@@ -50,6 +59,7 @@ void adauga(int x, int y)
     lst[x] = nr;	
 }
  
+
 	
 void dfsTop(int x)	
 {
