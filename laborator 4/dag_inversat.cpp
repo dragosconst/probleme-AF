@@ -26,7 +26,7 @@ void adauga(int, int, int);
 void dfsTop(int x);
 void basicDfs(int x);
 void inserSandT();
-void dga();
+void dag();
 void critical();
 void findIntervals();
 int main()
@@ -50,7 +50,7 @@ int main()
     }
 
     // punctul a)
-    dga();
+    dag();
     critical();
     //punctul b)
     findIntervals();
@@ -132,7 +132,7 @@ void inserSandT()
     cout << endl;
 }
 
-void dga()
+void dag()
 {
     inserSandT();
 
