@@ -118,7 +118,7 @@ int main()
         //printf("flux_nou: %d\n", flux_nou);
         val_flux += flux_nou;
         y = t;
-        while (y != s)
+        while (y != s) // actualizarea fluxurilor pe drumul gasit in graful rezidual
         {
             x = tata[y];
             if (adj[x][y])
