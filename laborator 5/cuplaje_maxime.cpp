@@ -19,7 +19,7 @@ const size_t MAXN = 103, INF=1000000000;
 int n, s, t, m;
 int flux[MAXN][MAXN], a[MAXN][MAXN], capf[MAXN][MAXN];
 int totalFlux[MAXN], tata[MAXN];
-int col[MAXN], viz[MAXN], af[MAXN]; // specifice problemei
+int col[MAXN], viz[MAXN], af[MAXN], viz[MAXN]; // specifice problemei
 vector<int> g[MAXN], retea[MAXN];
 vector<int> rez[MAXN];
 
