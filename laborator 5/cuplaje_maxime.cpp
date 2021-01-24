@@ -174,6 +174,8 @@ revisionAndUpdateGf(int fx)
 
         capf[prev][tmp] -= fx;
         capf[tmp][prev] += fx;
+        if(!(capf[tmp][prev] - fx))
+            rez[tmp].push_back(prev);
 
         tmp = tata[tmp];
     }
@@ -183,16 +185,19 @@ revisionAndUpdateGf(int fx)
 int
 edmondBfsGf()
 {
-    memset(tata, 0, (n+2) * sizeof(int)); // chipurile memset e mai rapid ca un for simplu, oricum e mai convenabil de scris imo
+    for(int i = 0; i <= n + 1; ++i)
+        viz[i] = tata[i] = 0;
 
-    queue<int> coada;
-    coada.push(s);
+    queue<pair<int, int>> coada;
+    coada.push({s, INF});
     int maxFlow = INF;
     tata[s] = s;
+    viz[s] = 1;
 
     while(!coada.empty())
     {
-        int u = coada.front();
+        int u = coada.front().first;
+        maxFlow = coada.front().second;
         coada.pop();
         if(u == t)
         {
@@ -202,15 +207,14 @@ edmondBfsGf()
         for(int i = 0; i < rez[u].size(); ++i)
         {
             int v = rez[u][i];
-            if(!tata[v] && capf[u][v] > 0) // a doua conditie marcheaza daca am "sters" din graful rezidual muchia
+            if(!viz[v] && capf[u][v] > 0) // a doua conditie marcheaza daca am "sters" din graful rezidual muchia
             {
-
+                viz[v] = 1;
                 tata[v] = u;
 
-                if(capf[u][v] < maxFlow)
-                    maxFlow = capf[u][v];
+                int bottleNeck = min(maxFlow, capf[u][v]);
 
-                coada.push(v);
+                coada.push({v, bottleNeck});
             }
         }
     }
@@ -228,4 +232,5 @@ ffek()
     }
     return totes;
 }
+
 
