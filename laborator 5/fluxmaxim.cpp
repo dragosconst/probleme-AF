@@ -17,7 +17,7 @@ vector<int> v[MAX_N]; // lista de adiacenta a grafului
 int flux[MAX_N][MAX_N]; // fluxul din graf
 vector<int> rez[MAX_N]; // lista de adiacenta a grafului rezidual
 int cap[MAX_N][MAX_N]; // capacitatea din graful rezidual
-int inout[MAX_N]; // pt verificarea conservarii fluxului
+int inout[MAX_N];
 int tata[MAX_N]; // pentru construirea drumului
 int n, m, s, t;
 
@@ -40,7 +40,9 @@ int bfs_graf_rezidual()
 
         for (int y : rez[x])
         {
-            if (!tata[y] && cap[x][y] > 0) // daca n-are parinte, inseamna ca nu a fost vizitat
+            /* daca n-are parinte, inseamna ca nu a fost vizitat
+             * de asemenea, nu luam in considerare arcele ce au capacitate 0 */
+            if (!tata[y] && cap[x][y] > 0)
             {
                 tata[y] = x;
                 int flux_nou = min(fl, cap[x][y]);
@@ -87,16 +89,14 @@ int main()
             val_flux += flux[x][y];
 
         /* Construieste graful rezidual*/
+        rez[x].push_back(y);
+        rez[y].push_back(x);
+
         if ((c - fl) != 0)
-        {
-            rez[x].push_back(y);
             cap[x][y] = c - fl;
-        }
+
         if (fl)
-        {
-            rez[y].push_back(x);
             cap[y][x] = fl;
-        }
 
         /* Aduna fluxul care iese si scade fluxul care intra */
         inout[x] += fl;
