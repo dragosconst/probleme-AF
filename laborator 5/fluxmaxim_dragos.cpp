@@ -130,14 +130,12 @@ revisionAndUpdateGf(int fx)
 int
 edmondBfsGf()
 {
-    for(int i = 0; i <= n + 1; ++i)
-        viz[i] = tata[i] = 0;
+	memset(tata, 0, (n+1) * sizeof(int));
 
     queue<pair<int, int>> coada;
     coada.push({s, INF});
     int maxFlow = INF;
     tata[s] = s;
-    viz[s] = 1;
 
     while(!coada.empty())
     {
@@ -152,9 +150,8 @@ edmondBfsGf()
         for(int i = 0; i < rez[u].size(); ++i)
         {
             int v = rez[u][i];
-            if(!viz[v] && capf[u][v] > 0) // a doua conditie marcheaza daca am "sters" din graful rezidual muchia
+            if(!tata[v] && capf[u][v] > 0) // a doua conditie marcheaza daca am "sters" din graful rezidual muchia
             {
-                viz[v] = 1;
                 tata[v] = u;
 
                 int bottleNeck = min(maxFlow, capf[u][v]);
